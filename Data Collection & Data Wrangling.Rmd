@@ -1,7 +1,7 @@
 ---
 title: "Data Collection and Data Wrangling"
-author: "Sana Rasheed"
-date: "July 19, 2020"
+author: "Asad Ullah"
+date: "Feb 09, 2022"
 output: html_document
 ---
 
@@ -25,21 +25,28 @@ library(help='datasets')
 
 
 ```{r }
-USPersonalExpenditure
+d <- datasets::USPersonalExpenditure
+head(d)
 ```
 
 ```{r }
 ### start solution ####
+m <- rowMeans(d)
+m
+s <- apply(d, 1, sd)
+s
 ```
 
 
 ```{r }
-
+m_col <- data.frame(mean_value = m)
+m_col
 ```
 
 
 ```{r }
-
+final <- cbind(d,m_col)
+head(final)
 ```
 
 
@@ -68,30 +75,68 @@ filename <- "msleep_ggplot2.csv"
 
 ```{r }
 ### start solution ####
-```
-
-
-```{r }
+download.file(url, destfile = "./data/msleep_ggplot2.csv", method = "curl")
+print(list.files("./data/"))
 
 ```
 
 
 ```{r }
-
+msleep <- read.csv("./data/msleep_ggplot2.csv")
+print(nrow(msleep))
+head(msleep)
 ```
 
 
 ```{r }
-
+print("first intialize factor of genus")
+t <- factor(msleep$genus)
+t
+table(t)
+print("find mean with respect to genus and body weight")
+m_g <- tapply(msleep$bodywt, t, mean,na.rm = TRUE)
+m_g
+print("check length for comparison with level and mean value")
+length(m_g)
+head(data.frame(m_g))
 ```
 
 
 ```{r }
-
+print("first intialize factor of order")
+t_o <- factor(msleep$order)
+t_o
+table(t_o)
+print("find mean with respect to order and body weight")
+m_o <- tapply(msleep$bodywt, t_o, mean, na.rm = TRUE)
+m_o
+print("check length for comparison with level and mean value")
+length(m_o)
+head(data.frame(m_o))
 ```
 
 
 ```{r }
+print("first intialize factor of order")
+rem <- factor(msleep$order)
+rem
+table(rem)
+print("find mean with respect to order and body weight")
+m_rem <- tapply(msleep$sleep_rem, rem, mean, na.rm= TRUE)
+m_rem
+print("check length for comparison with level and mean value")
+length(m_rem)
+head(data.frame(m_rem))
+```
+
+
+```{r }
+print("total missing value in a data fram")
+sum(is.na(msleep))
+
+print("na values per column")
+(apply(is.na(msleep),2,sum))
+
 ### end solution ###
 ```
 
