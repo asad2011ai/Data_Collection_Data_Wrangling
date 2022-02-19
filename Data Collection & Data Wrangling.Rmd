@@ -136,7 +136,8 @@ sum(is.na(msleep))
 
 print("na values per column")
 (apply(is.na(msleep),2,sum))
-
+#############################
+if my data is categorical then i will prefer to go groupby function other wise i will use overall mean/mode/median
 ### end solution ###
 ```
 
@@ -156,21 +157,46 @@ print("na values per column")
 
 
 ```{r }
+msleep <- read.csv("./data/msleep-200908-125135.csv")
+print(names(msleep))
+head(msleep)
 
 ```
 
 
 ```{r }
+library(tidyr)
+library(dplyr)
+msleep <- read.csv("./data/msleep-200908-125135.csv")
+print("for carnivores")
+cr <- msleep %>% 
+  select(sleep_rem,sleep_total,order) %>%
+  filter(order %in% c('Carnivora')) %>%
+  summarise(rem_mean=mean(sleep_rem, na.rm= TRUE), st_mean= mean(sleep_total),n=n())
+
+cr
 
 ```
 
 
 ```{r }
+print("for primates")
 
+pr <- msleep %>% 
+  select(sleep_rem,sleep_total,order) %>%
+  filter(order %in% c('Primates')) %>%
+  summarise(rem_mean=mean(sleep_rem, na.rm= TRUE), st_mean= mean(sleep_total),n=n())
+pr
 ```
 
 
 ```{r }
+library(dplyr)
+library(tidyr)
+?spread
+head(msleep)
+names(msleep)
+msleep %>% spread(order,genus)
 
 ```
 
