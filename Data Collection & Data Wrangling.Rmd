@@ -131,13 +131,17 @@ head(data.frame(m_rem))
 
 
 ```{r }
+
 print("total missing value in a data fram")
 sum(is.na(msleep))
 
 print("na values per column")
 (apply(is.na(msleep),2,sum))
 #############################
-if my data is categorical then i will prefer to go groupby function other wise i will use overall mean/mode/median
+
+#Answer of last question
+#if my data is categorical then i will prefer to go groupby function other wise i will use overall mean/mode/median
+
 ### end solution ###
 ```
 
